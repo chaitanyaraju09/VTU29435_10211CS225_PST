@@ -1,15 +1,61 @@
-class Solution {
-    public int[] runningSum(int[] nums) {
-
-        for(int i = 1; i < nums.length; i++) {
-            nums[i] = nums[i] + nums[i - 1];
+import java.util.*;
+class Checker implements Comparator<Player> {
+    @Override
+    public int compare(Player a, Player b) {
+        if (a.score != b.score) {
+            return b.score - a.score; 
         }
-
-        return nums;
+        return a.name.compareTo(b.name);
     }
 }
 
-//  output
 
-Input: nums = [1,2,3,4]
-Output: [1,3,6,10]
+class Player{
+    String name;
+    int score;
+    
+    Player(String name, int score){
+        this.name = name;
+        this.score = score;
+    }
+}
+
+class Solution {
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+
+        Player[] player = new Player[n];
+        Checker checker = new Checker();
+        
+        for(int i = 0; i < n; i++){
+            player[i] = new Player(scan.next(), scan.nextInt());
+        }
+        scan.close();
+
+        Arrays.sort(player, checker);
+        for(int i = 0; i < player.length; i++){
+            System.out.printf("%s %s\n", player[i].name, player[i].score);
+        }
+    }
+}
+
+
+//  OUTPUT  
+
+Sample Input
+
+5
+amy 100
+david 100
+heraldo 50
+aakansha 75
+aleksa 150
+Sample Output
+
+aleksa 150
+amy 100
+david 100
+aakansha 75
+heraldo 50
